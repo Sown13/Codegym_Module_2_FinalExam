@@ -14,11 +14,12 @@ public class StudentManager implements IStudentManager, Serializable {
     private static List<Student> studentList = new ArrayList<>();
     Read<Student> loader = new Read<>();
     Write<Student> saver = new Write<>();
-    public void loadFile(){
+
+    public void loadFile() {
         studentList = loader.loadListData("src/io/data/students.csv");
     }
 
-    public void saveFile(){
+    public void saveFile() {
         saver.writeToSaveFile(studentList, "src/io/data/students.csv");
     }
 
@@ -84,26 +85,28 @@ public class StudentManager implements IStudentManager, Serializable {
 
     @Override
     public void display() {
-//        Scanner scanner = new Scanner(System.in);
-//        boolean isDisplayDone = false;
-//        int displayCondition = 0;
-//        int i = 0;
-//        int j = 0;
-//        do {
-//            for (; displayCondition < studentList.size(); displayCondition++) {
-//                for (j = i + 5; i < j && i < studentList.size(); i++) {
-//                    System.out.println(studentList.get(i));
-//                }
-//                String waiter = scanner.nextLine();
-//                if (displayCondition == studentList.size()) {
-//                    isDisplayDone = true;
-//                }
-//            }
-//        } while (isDisplayDone);
+        Scanner scanner = new Scanner(System.in);
+        boolean isDisplayDone = false;
+        int displayCondition = 0;
+        int i = 0;
+        int j = 0;
+        int k = studentList.size() / 5;
+        do {
+            for (int n = 0; n <= k; n++) {
+                for (j = i + 5; i < j && i < studentList.size(); i++, displayCondition++) {
+                    System.out.println(studentList.get(i));
+                }
+                String waiter = scanner.nextLine();
+                if (displayCondition == studentList.size()) {
+                    isDisplayDone = true;
+                }
+            }
+            if (isDisplayDone) break;
+        } while (isDisplayDone);
 
-        for (Student student : studentList){
-            System.out.println(student);
-        }
+//        for (Student student : studentList){
+//            System.out.println(student);
+//        }
     }
 
     @Override
@@ -124,7 +127,7 @@ public class StudentManager implements IStudentManager, Serializable {
                 studentList.sort(Comparator.comparing(Student::getAverageScore));
                 List<Student> tempList = new ArrayList<>();
 //                tempList = studentList.stream().sorted(Comparator.comparing(Student::getAverageScore)).toList();
-                for (int i = studentList.size()-1; i >= 0; i--){
+                for (int i = studentList.size() - 1; i >= 0; i--) {
                     tempList.add(studentList.get(i));
                 }
                 studentList = tempList;
