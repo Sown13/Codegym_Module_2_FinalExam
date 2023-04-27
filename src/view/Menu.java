@@ -19,8 +19,20 @@ public class Menu {
     }
 
     public static void mainMenu() {
-        Scanner scanner = new Scanner(System.in);
 
+        Scanner scanner = new Scanner(System.in);
+        Student s1 = new Student();
+        Student s2 = new Student();
+        Student s3 = new Student();
+        Student s4 = new Student();
+        Student s5 = new Student();
+        Student s6 = new Student();
+        studentManager.add(s1);
+        studentManager.add(s2);
+        studentManager.add(s3);
+        studentManager.add(s4);
+        studentManager.add(s5);
+        studentManager.add(s6);
         String choice;
         do {
             System.out.println("""
@@ -80,11 +92,10 @@ public class Menu {
                                 System.out.println("Bắt đầu thêm:");
                                 String name = " ";
                                 do {
-                                    if(isValid(name)){
+                                    if (isValid(name)) {
                                         System.out.println("Nhập tên học sinh");
                                         name = scanner.nextLine();
-                                    }
-                                    else {
+                                    } else {
                                         System.out.println("Không hợp lệ, nhập lại");
                                         name = scanner.nextLine();
                                     }
@@ -115,13 +126,12 @@ public class Menu {
                                 System.out.println("Thêm học sinh mới thành công" + newStudent);
                             }
                         }
-                        case "3" -> studentManager.edit();
-                        case "4" -> studentManager.remove();
-                        default -> {
-                            Menu.mainMenu();
-                        }
                     }
                 }
+                case "3" -> studentManager.edit();
+                case "4" -> studentManager.remove();
+                case "5" -> studentManager.sort();
+                default -> Menu.mainMenu();
             }
         }
         while (menuCondition);

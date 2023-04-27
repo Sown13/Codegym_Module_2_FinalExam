@@ -84,7 +84,7 @@ public class Student implements Serializable, Comparator<Student> {
                 ", gender=" + gender +
                 ", address=" + address +
                 ", averageScore=" + averageScore +
-                '}';
+                '}' + "\n";
     }
 
     @Override
