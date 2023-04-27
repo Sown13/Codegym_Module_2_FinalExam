@@ -10,16 +10,7 @@ public class Menu {
     static Boolean menuCondition = true;
     static StudentManager studentManager = new StudentManager();
 
-    public static boolean isValid(String checkCondition) {
-        if (checkCondition == "") {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     public static void mainMenu() {
-
         Scanner scanner = new Scanner(System.in);
         String choice;
         do {
@@ -33,7 +24,7 @@ public class Menu {
                     5. Sắp xếp
                     6. Đọc từ file
                     7. Ghi vào file
-                    8. Thoát
+                    0. Thoát
                     Chọn chức năng:
                     """);
             choice = scanner.nextLine();
@@ -80,25 +71,31 @@ public class Menu {
                 }
                 case "2" -> {
                     System.out.println("Bắt đầu thêm:");
-                    String name = " ";
-                    do {
-                        if (isValid(name)) {
-                            System.out.println("Nhập tên học sinh");
-                            name = scanner.nextLine();
+                    System.out.println("Nhập tên");
+                    String name = scanner.nextLine();
+                    boolean check = true;
+                    if (name == "") {
+                        check = false;
+                    } else {
+                        check = true;
+                    }
+                    while (!check) {
+                        System.out.println("Không được để trống, xin hãy nhập tên vào");
+                        name = scanner.nextLine();
+                        if (name == "") {
+                            check = false;
                         } else {
-                            System.out.println("Không hợp lệ, nhập lại");
-                            name = scanner.nextLine();
+                            check = true;
                         }
                     }
-                    while (isValid(name));
                     System.out.println("Nhập tuổi");
                     int age = Integer.parseInt(scanner.nextLine());
                     System.out.println("Nhập giới tính");
                     System.out.println("""
-                                        1/ Nam
-                                        2/ Nữ
-                                        Khác/ Khác
-                                        """);
+                            1/ Nam
+                            2/ Nữ
+                            Khác/ Khác
+                            """);
                     String gender;
                     choice = scanner.nextLine();
                     switch (choice) {
@@ -121,7 +118,6 @@ public class Menu {
                 case "6" -> studentManager.loadFile();
                 case "7" -> studentManager.saveFile();
                 case "0" -> System.exit(0);
-                default -> Menu.mainMenu();
             }
         }
         while (menuCondition);
