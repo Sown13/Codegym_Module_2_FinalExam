@@ -97,8 +97,8 @@ public class StudentManager implements IStudentManager, Serializable {
                 for (j = i + 5; i < j && i < studentList.size(); i++, displayCondition++) {
                     System.out.println(studentList.get(i));
                 }
+                System.out.println("Ấn enter lần nữa để tiếp tục hiển thị 5 học sinh tiếp theo hoặc trở về menu nếu danh sách đã hết");
                 String waiter = scanner.nextLine();
-                System.out.println("Ấn enter lần nữa để tiếp tục hiển thị 5 học sinh tiếp theo!");
                 if (displayCondition == studentList.size()) {
                     isDisplayDone = true;
                 }
