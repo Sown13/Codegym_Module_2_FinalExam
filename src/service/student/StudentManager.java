@@ -1,14 +1,26 @@
 package service.student;
 
+import io.Read;
+import io.Write;
 import model.Student;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
-public class StudentManager implements IStudentManager {
+public class StudentManager implements IStudentManager, Serializable {
     private static List<Student> studentList = new ArrayList<>();
+    Read<Student> loader = new Read<>();
+    Write<Student> saver = new Write<>();
+    public void loadFile(){
+        studentList = loader.loadListData("src/io/data/students.csv");
+    }
+
+    public void saveFile(){
+        saver.writeToSaveFile(studentList, "src/io/data/students.csv");
+    }
 
     @Override
     public void add(Student student) {
@@ -98,7 +110,8 @@ public class StudentManager implements IStudentManager {
     public void sort() {
         System.out.println("""
                 1/       Sắp xếp theo điểm trung bình tăng dần
-                2/Khác:  Sắp xếp theo điểm trung bình giảm dần
+                2/       Sắp xếp theo điểm trung bình giảm dần
+                3/Khác   Quay lại
                 """);
         Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine();
@@ -107,7 +120,7 @@ public class StudentManager implements IStudentManager {
                 studentList.sort(Comparator.comparing(Student::getAverageScore));
                 System.out.println(studentList);
             }
-            default -> {
+            case "2" -> {
                 studentList.sort(Comparator.comparing(Student::getAverageScore));
                 List<Student> tempList = new ArrayList<>();
 //                tempList = studentList.stream().sorted(Comparator.comparing(Student::getAverageScore)).toList();
@@ -117,6 +130,7 @@ public class StudentManager implements IStudentManager {
                 studentList = tempList;
                 System.out.println(studentList);
             }
+            default -> System.out.println("Đã quay lại!");
         }
     }
 }
