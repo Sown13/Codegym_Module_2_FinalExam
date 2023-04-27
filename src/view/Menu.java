@@ -10,6 +10,45 @@ public class Menu {
     static Boolean menuCondition = true;
     static StudentManager studentManager = new StudentManager();
 
+    public static void addStudentMenu() {
+        String choice;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Bắt đầu thêm:");
+        System.out.println("Nhập tên");
+        String name = scanner.nextLine();
+        boolean check;
+        check = !name.equals("");
+        while (!check) {
+            System.out.println("Không được để trống, xin hãy nhập tên vào");
+            name = scanner.nextLine();
+            check = !name.equals("");
+        }
+        System.out.println("Nhập tuổi");
+        int age = Integer.parseInt(scanner.nextLine());
+        System.out.println("Nhập giới tính");
+        System.out.println("""
+                1/ Nam
+                2/ Nữ
+                Khác/ Khác
+                """);
+        String gender;
+        choice = scanner.nextLine();
+        switch (choice) {
+            case "1" -> gender = "Nam";
+            case "2" -> gender = "Nữ";
+            default -> gender = "Khác";
+        }
+        System.out.println("Nhập địa chỉ");
+        String addressName = scanner.nextLine();
+        Address address = new Address(addressName);
+        System.out.println("Nhập điểm trung bình");
+        double averageScore = Double.parseDouble(scanner.nextLine());
+        Student newStudent = new Student(name, age, gender, address, averageScore);
+        studentManager.add(newStudent);
+        System.out.println("Thêm học sinh mới thành công" + newStudent);
+
+    }
+
     public static void mainMenu() {
         Scanner scanner = new Scanner(System.in);
         String choice;
@@ -37,81 +76,13 @@ public class Menu {
                             0/ Quay lại
                             """);
                     choice = scanner.nextLine();
-                    switch (choice) {
-                        case "1" -> {
-                            System.out.println("Bắt đầu thêm:");
-                            System.out.println("Nhập tên học sinh");
-                            String name = scanner.nextLine();
-                            System.out.println("Nhập tuổi");
-                            int age = Integer.parseInt(scanner.nextLine());
-                            System.out.println("Nhập giới tính");
-                            System.out.println("""
-                                    1/ Nam
-                                    2/ Nữ
-                                    Khác/ Khác
-                                    """);
-                            String gender;
-                            choice = scanner.nextLine();
-                            switch (choice) {
-                                case "1" -> gender = "Nam";
-                                case "2" -> gender = "Nữ";
-                                default -> gender = "Khác";
-                            }
-                            System.out.println("Nhập địa chỉ");
-                            String addressName = scanner.nextLine();
-                            Address address = new Address(addressName);
-                            System.out.println("Nhập điểm trung bình");
-                            double averageScore = Double.parseDouble(scanner.nextLine());
-                            Student newStudent = new Student(name, age, gender, address, averageScore);
-                            studentManager.add(newStudent);
-                            System.out.println("Thêm học sinh mới thành công" + newStudent);
-                        }
-                        default -> System.out.println("Quay lại!");
-                    }
-                }
-                case "2" -> {
-                    System.out.println("Bắt đầu thêm:");
-                    System.out.println("Nhập tên");
-                    String name = scanner.nextLine();
-                    boolean check = true;
-                    if (name == "") {
-                        check = false;
+                    if (choice.equals("1")) {
+                        Menu.addStudentMenu();
                     } else {
-                        check = true;
+                        System.out.println("Quay lại!");
                     }
-                    while (!check) {
-                        System.out.println("Không được để trống, xin hãy nhập tên vào");
-                        name = scanner.nextLine();
-                        if (name == "") {
-                            check = false;
-                        } else {
-                            check = true;
-                        }
-                    }
-                    System.out.println("Nhập tuổi");
-                    int age = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Nhập giới tính");
-                    System.out.println("""
-                            1/ Nam
-                            2/ Nữ
-                            Khác/ Khác
-                            """);
-                    String gender;
-                    choice = scanner.nextLine();
-                    switch (choice) {
-                        case "1" -> gender = "Nam";
-                        case "2" -> gender = "Nữ";
-                        default -> gender = "Khác";
-                    }
-                    System.out.println("Nhập địa chỉ");
-                    String addressName = scanner.nextLine();
-                    Address address = new Address(addressName);
-                    System.out.println("Nhập điểm trung bình");
-                    double averageScore = Double.parseDouble(scanner.nextLine());
-                    Student newStudent = new Student(name, age, gender, address, averageScore);
-                    studentManager.add(newStudent);
-                    System.out.println("Thêm học sinh mới thành công" + newStudent);
                 }
+                case "2" -> Menu.addStudentMenu();
                 case "3" -> studentManager.edit();
                 case "4" -> studentManager.remove();
                 case "5" -> studentManager.sort();

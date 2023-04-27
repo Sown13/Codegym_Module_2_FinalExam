@@ -76,9 +76,10 @@ public class StudentManager implements IStudentManager, Serializable {
                     2/KHÁC: Không
                     """);
             String choice = scanner.nextLine();
-            switch (choice) {
-                case "1" -> studentList.remove(foundedStudent);
-                default -> System.out.println("Đã hủy lệnh, quay lại menu chính!");
+            if (choice.equals("1")) {
+                studentList.remove(foundedStudent);
+            } else {
+                System.out.println("Đã hủy lệnh, quay lại menu chính!");
             }
         }
     }
@@ -89,7 +90,7 @@ public class StudentManager implements IStudentManager, Serializable {
         boolean isDisplayDone = false;
         int displayCondition = 0;
         int i = 0;
-        int j = 0;
+        int j;
         int k = studentList.size() / 5;
         do {
             for (int n = 0; n <= k; n++) {
@@ -97,16 +98,13 @@ public class StudentManager implements IStudentManager, Serializable {
                     System.out.println(studentList.get(i));
                 }
                 String waiter = scanner.nextLine();
+                System.out.println("Ấn enter lần nữa để tiếp tục hiển thị 5 học sinh tiếp theo!");
                 if (displayCondition == studentList.size()) {
                     isDisplayDone = true;
                 }
             }
             if (isDisplayDone) break;
         } while (isDisplayDone);
-
-//        for (Student student : studentList){
-//            System.out.println(student);
-//        }
     }
 
     @Override
