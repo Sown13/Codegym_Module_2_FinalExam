@@ -133,6 +133,7 @@ public class Menu {
                 case "5" -> studentManager.sort();
                 case "6" -> studentManager.loadFile();
                 case "7" -> studentManager.saveFile();
+                case "0" -> System.exit(0);
                 default -> Menu.mainMenu();
             }
         }
