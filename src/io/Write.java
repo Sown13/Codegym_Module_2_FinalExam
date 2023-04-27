@@ -3,7 +3,7 @@ package io;
 import java.io.*;
 import java.util.List;
 
-public class Write<T> implements Serializable {
+public class Write<T> {
     public void writeToSaveFile(List<T> exportList, String pathName){
         File saveFile = new File(pathName);
         try(FileOutputStream fileOutputStream = new FileOutputStream(saveFile);
