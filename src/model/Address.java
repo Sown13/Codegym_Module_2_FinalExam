@@ -6,4 +6,5 @@ public class Address {
     public Address(String addressDetail) {
         this.addressDetail = addressDetail;
     }
+
 }

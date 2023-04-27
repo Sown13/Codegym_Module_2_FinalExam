@@ -7,11 +7,24 @@ public class Student implements Serializable {
     private String studentID;
     private String studentName;
     private int age;
-    private Gender gender;
+    private String gender;
     private Address address;
     private double averageScore;
 
     public Student() {
+        ++idCounter;
+        this.studentID = "student" + idCounter;
+    }
+
+    public Student(String studentName, int age, String gender, Address address, double averageScore) {
+        ++idCounter;
+        this.studentID = "student" + idCounter;
+        this.studentID = studentID;
+        this.studentName = studentName;
+        this.age = age;
+        this.gender = gender;
+        this.address = address;
+        this.averageScore = averageScore;
     }
 
     public String getStudentID() {
@@ -38,11 +51,11 @@ public class Student implements Serializable {
         this.age = age;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -60,5 +73,17 @@ public class Student implements Serializable {
 
     public void setAverageScore(double averageScore) {
         this.averageScore = averageScore;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentID='" + studentID + '\'' +
+                ", studentName='" + studentName + '\'' +
+                ", age=" + age +
+                ", gender=" + gender +
+                ", address=" + address +
+                ", averageScore=" + averageScore +
+                '}';
     }
 }
