@@ -1,8 +1,9 @@
 package model;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
-public class Student implements Serializable {
+public class Student implements Serializable, Comparator<Student> {
     private static int idCounter = 10000;
     private String studentID;
     private String studentName;
@@ -19,7 +20,6 @@ public class Student implements Serializable {
     public Student(String studentName, int age, String gender, Address address, double averageScore) {
         ++idCounter;
         this.studentID = "student" + idCounter;
-        this.studentID = studentID;
         this.studentName = studentName;
         this.age = age;
         this.gender = gender;
@@ -85,5 +85,14 @@ public class Student implements Serializable {
                 ", address=" + address +
                 ", averageScore=" + averageScore +
                 '}';
+    }
+
+    @Override
+    public int compare(Student s1, Student s2) {
+        if (s1.getAverageScore() > s2.getAverageScore()) {
+            return 1;
+        } else if (s1.getAverageScore() < s2.getAverageScore()) {
+            return -1;
+        } else return 0;
     }
 }

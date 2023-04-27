@@ -1,7 +1,6 @@
 package view;
 
 import model.Address;
-import model.Gender;
 import model.Student;
 import service.student.StudentManager;
 
@@ -10,7 +9,16 @@ import java.util.Scanner;
 public class Menu {
     static Boolean menuCondition = true;
     static StudentManager studentManager = new StudentManager();
-    public static void mainMenu(){
+
+    public static boolean isValid(String checkCondition) {
+        if (checkCondition == "") {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static void mainMenu() {
         Scanner scanner = new Scanner(System.in);
 
         String choice;
@@ -29,7 +37,7 @@ public class Menu {
                     Chọn chức năng:
                     """);
             choice = scanner.nextLine();
-            switch (choice){
+            switch (choice) {
                 case "1" -> {
                     studentManager.display();
                     System.out.println("""
@@ -38,7 +46,7 @@ public class Menu {
                             0/ Quay lại
                             """);
                     choice = scanner.nextLine();
-                    switch (choice){
+                    switch (choice) {
                         case "1" -> {
                             System.out.println("Bắt đầu thêm:");
                             System.out.println("Nhập tên học sinh");
@@ -53,7 +61,7 @@ public class Menu {
                                     """);
                             String gender;
                             choice = scanner.nextLine();
-                            switch (choice){
+                            switch (choice) {
                                 case "1" -> gender = "Nam";
                                 case "2" -> gender = "Nữ";
                                 default -> gender = "Khác";
@@ -63,11 +71,52 @@ public class Menu {
                             Address address = new Address(addressName);
                             System.out.println("Nhập điểm trung bình");
                             double averageScore = Double.parseDouble(scanner.nextLine());
-                            Student newStudent = new Student(name,age,gender,address,averageScore);
+                            Student newStudent = new Student(name, age, gender, address, averageScore);
                             studentManager.add(newStudent);
-                            System.out.println("Thêm học sinh mới thành công");
-                            System.out.println(newStudent);
+                            System.out.println("Thêm học sinh mới thành công" + newStudent);
                         }
+                        case "2" -> {
+                            {
+                                System.out.println("Bắt đầu thêm:");
+                                String name = " ";
+                                do {
+                                    if(isValid(name)){
+                                        System.out.println("Nhập tên học sinh");
+                                        name = scanner.nextLine();
+                                    }
+                                    else {
+                                        System.out.println("Không hợp lệ, nhập lại");
+                                        name = scanner.nextLine();
+                                    }
+                                }
+                                while (isValid(name));
+                                System.out.println("Nhập tuổi");
+                                int age = Integer.parseInt(scanner.nextLine());
+                                System.out.println("Nhập giới tính");
+                                System.out.println("""
+                                        1/ Nam
+                                        2/ Nữ
+                                        Khác/ Khác
+                                        """);
+                                String gender;
+                                choice = scanner.nextLine();
+                                switch (choice) {
+                                    case "1" -> gender = "Nam";
+                                    case "2" -> gender = "Nữ";
+                                    default -> gender = "Khác";
+                                }
+                                System.out.println("Nhập địa chỉ");
+                                String addressName = scanner.nextLine();
+                                Address address = new Address(addressName);
+                                System.out.println("Nhập điểm trung bình");
+                                double averageScore = Double.parseDouble(scanner.nextLine());
+                                Student newStudent = new Student(name, age, gender, address, averageScore);
+                                studentManager.add(newStudent);
+                                System.out.println("Thêm học sinh mới thành công" + newStudent);
+                            }
+                        }
+                        case "3" -> studentManager.edit();
+                        case "4" -> studentManager.remove();
                         default -> {
                             Menu.mainMenu();
                         }
